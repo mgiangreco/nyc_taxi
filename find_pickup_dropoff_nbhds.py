@@ -2,20 +2,24 @@
 # Finds neighborhood / borough info for all possible pickup/dropoff locations
 # Need to round lat/lon coords to speed up lookups
 # Only run this once!
-####################################################################
-####################################################################
 # Make sure to download this file (or pull file 'nyc_neighborhoods.json' from GitHub):
 # http://data.beta.nyc//dataset/0ff93d2d-90ba-457c-9f7e-39e47bf2ac5f/resource/35dd04fb-81b3-479b-a074-a27a37888ce7/download/d085e2f8d0b54d4590b1e7d1f35594c1pediacitiesnycneighborhoods.geojson
 # Save it as 'nyc_neighborhoods.json' in top directory
-####################################################################
-####################################################################
+
+import os
+import glob
+import json
+import pandas as pd
+import numpy as np
+from shapely.geometry import shape, Point
+
 # Set this to top directory
-top_dir = 'C:/Users/Beatrice/Desktop/Taxi Analysis'
+top_dir = '/Users/mgiangreco/Documents/taxi_analysis'
+
 # Set to number of decimals to round coordinates to
 # 3 decimals provides ~ 100m resolution
 num_dec = 3
 
-import os, glob, pandas as pd, numpy as np
 os.chdir(top_dir + '/data')
 files = glob.glob('green*') + glob.glob('yellow*')
 pd_locations = pd.DataFrame(columns = ['rounded_lon', 'rounded_lat'])
@@ -41,17 +45,14 @@ for x in files:
     pd_locations.drop_duplicates(inplace=True)
     print(x)
     del tmp, tmp1, tmp2, tmp_locs
-
-# Change back to top directory
-os.chdir(top_dir)
+    
 
 # Drop NAs, sort coords to make lookups faster
 pd_locations.dropna(inplace=True)
-pd_locations = pd_locations.sort(['rounded_lon', 'rounded_lat']).reset_index()[['rounded_lon', 'rounded_lat']]
+pd_locations = pd_locations.sort_values(['rounded_lon', 'rounded_lat']).reset_index()[['rounded_lon', 'rounded_lat']]
 
 # Do geohashing to borough and neighborhood
-import json
-from shapely.geometry import shape, Point
+
 # load GeoJSON file containing neighborhood sectors, discussed on lines 7-9
 with open('nyc_neighborhoods.json', 'r') as f:
     js = json.load(f)
@@ -97,5 +98,6 @@ pd_locations['borough'] = l1
 pd_locations['nbhd'] = l2
 
 pd_locations = pd_locations.dropna().reset_index(drop=True)
+
 # save file to pickle as pd_locs.pkl
-pd_locations.to_pickle('./data/pd_locs.pkl')
+pd_locations.to_pickle('/Users/mgiangreco/Documents/taxi_analysis/data/pd_locs.pkl')

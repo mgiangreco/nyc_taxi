@@ -3,17 +3,24 @@
 # WARNING: Very slow (each yellow file ~2GB)
 # Compressed to about 1/4 the size in gzip format
 
-# Years of data to download (currently 2009 - present)
-years = ['2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016']
+import os
+import requests
+import glob
+import pandas as pd
+
+# Years of data to download 
+years = ['2016']
+
 # Months of data to download
-months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+months = ['06']
+
 # Green only available beginning from August 2013
 types = ['yellow', 'green']
 url_add = 'https://s3.amazonaws.com/nyc-tlc/trip+data/'
 
-import os, requests, glob, pandas as pd
 # Set to download directory
-os.chdir('C:/Users/Beatrice/Desktop/Taxi Analysis/data')
+os.chdir('/Users/mgiangreco/Documents/taxi_analysis/data')
+
 # Get list of already downloaded files
 files = glob.glob('yellow*') + glob.glob('green*')
 

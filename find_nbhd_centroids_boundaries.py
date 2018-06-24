@@ -1,7 +1,10 @@
-import os, json, pandas as pd
+import os
+import json
+import pandas as pd
 from shapely.geometry import Polygon
+
 # Set top directory
-top_dir = top_dir = 'C:/Users/Beatrice/Desktop/Taxi Analysis'
+top_dir = top_dir = '/Users/mgiangreco/Documents/taxi_analysis/data'
 os.chdir(top_dir)
 
 # load JSON file containing neighborhood sectors
@@ -24,7 +27,7 @@ for feature in js['features']:
     
 nbhd_centroids = pd.DataFrame({'lon': lon, 'lat': lat, 'nbhd': nbhd, 'borough': brgh})
 nbhd_centroids = nbhd_centroids.loc[nbhd_centroids[['borough', 'nbhd']].drop_duplicates().index]
-nbhd_centroids.to_pickle('./data/nbhd_centroids.pkl')
+nbhd_centroids.to_pickle('/Users/mgiangreco/Documents/taxi_analysis/data/nbhd_centroids.pkl')
 
 ###################################################################
 ###################################################################
@@ -42,4 +45,4 @@ for feature in js['features']:
     
 nbhd_borders = pd.DataFrame({'lon': lon, 'lat': lat, 'nbhd': nbhd, 'borough': brgh})
 nbhd_borders = nbhd_borders.drop_duplicates()
-nbhd_borders.to_pickle('./data/nbhd_borders.pkl')
+nbhd_borders.to_pickle('/Users/mgiangreco/Documents/taxi_analysis/data/nbhd_centroids.pkl')
