@@ -1,7 +1,7 @@
 # nyc_taxi
 Analysis of NYC taxi trip data
 
-This repository provides Python code to download and analyze New York City taxi trips from June 2016, forked from [here] (https://github.com/geekman1/nyc_taxi) and modified to include dropoff as well as pickup locations and modified to return an unaggregated CSV file instead of a summarized file. A detailed description of the data is available [here](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml), as well as the actual data in CSV format. The directory should be set up as follows:
+This repository provides Python code to download and analyze New York City taxi trips from June 2016, forked from https://github.com/geekman1/nyc_taxi and modified to include dropoff as well as pickup locations and modified to return an unaggregated CSV file instead of a summarized file. A detailed description of the data is available [here](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml), as well as the actual data in CSV format. The directory should be set up as follows:
 
 - Top Directory (called 'taxi_analysis' in the code)
   - Top Directory\data
